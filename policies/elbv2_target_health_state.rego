@@ -42,9 +42,15 @@ target_id := object.get(config, "target_id", "unknown")
 state := lower(object.get(config, "target_health_state", ""))
 allowed := data.allowed_unhealthy_target_ids
 treat_unavailable_as_failure := data.treat_unavailable_as_failure
+recognized_target_health_states := {"healthy", "unhealthy", "draining", "unused", "initial", "unavailable"}
 
 skip_reason := sprintf("Resource type %q is not a target health record; this policy only applies to target-health records.", [resource_type]) if {
 	not resource_type == "target-health"
+}
+
+skip_reason := sprintf("Target %s has unrecognized or missing target health state %q.", [target_id, state]) if {
+	resource_type == "target-health"
+	not state in recognized_target_health_states
 }
 
 title := sprintf("Validate target health for %s", [target_id])

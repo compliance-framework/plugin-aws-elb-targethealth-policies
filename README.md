@@ -31,7 +31,7 @@ This bundle evaluates documents where `input.resource.type == "target-health"`.
 | --- | --- | --- | --- |
 | `compliance_framework.elbv2_target_health_state` | Flags registered targets reporting `unhealthy`, and optionally `unavailable`, unless the target is an approved exception. | `ELB_TARGET_HEALTH` | `ctrl-a1-1-009`, `ctrl-a1-2-007` |
 
-The policy skips non-`target-health` records. Transitional states (`draining`, `unused`, `initial`) do not fail. `unavailable` only fails when configured as a failure state.
+The policy skips non-`target-health` records. For target-health records with recognized states, `unhealthy` fails unless allowed, `unavailable` only fails when `data.treat_unavailable_as_failure` is true, and recognized non-failing states such as `healthy`, `draining`, `unused`, and `initial` do not produce violations. Missing or unrecognized `target_health_state` values are skipped with `skip_reason` rather than treated as compliant.
 
 ## Policy data
 
