@@ -1,0 +1,5 @@
+lisa-addressed:
+---
+Comment (LICENSE:1):
+License MUST be AGPL!
+Implementation guidance: Replace the entire contents of LICENSE with the official GNU Affero General Public License version 3 text. Do not try to patch individual Apache-2.0 paragraphs or leave mixed license language behind; the file should start with `GNU AFFERO GENERAL PUBLIC LICENSE` and `Version 3, 19 November 2007`. After changing LICENSE, search the repo for license references with `rg -n "Apache|Apache-2.0|AGPL|license|License"` and update any project metadata or README license mention that still says Apache-2.0 to AGPL-3.0-only. Avoid changing policy behavior, CI, tests, or unrelated files.
