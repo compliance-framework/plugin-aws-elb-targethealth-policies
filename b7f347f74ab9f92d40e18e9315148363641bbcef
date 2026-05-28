@@ -1,0 +1,5 @@
+lisa-design:
+- The policy reads tunables only from flat top-level `data.allowed_unhealthy_target_ids` and `data.treat_unavailable_as_failure`; callers must override these through agent `policy_data`, not by adding `input.policy_inputs`.
+- Violations intentionally use `violation[{"id": "..."}] if` rule heads instead of `violation contains ...` because the CCF plugin consumes the partial set keyed by the object literal.
+- `unavailable` is non-failing by default and only becomes a violation when `data.treat_unavailable_as_failure` is `true`, preserving the contract that missing health reports are not always compliance failures.
+- Non-`target-health` resources are skipped by type guard and optional `skip_reason`, so this bundle must not be used to evaluate load balancer, listener, or other ELBv2 resource shapes as failures.
