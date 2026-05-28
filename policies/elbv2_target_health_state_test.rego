@@ -35,6 +35,14 @@ test_draining_target_has_no_violation if {
 	count(policy.violation) == 0 with input as target_health_input("draining")
 }
 
+test_unused_target_has_no_violation if {
+	count(policy.violation) == 0 with input as target_health_input("unused")
+}
+
+test_initial_target_has_no_violation if {
+	count(policy.violation) == 0 with input as target_health_input("initial")
+}
+
 test_unavailable_target_has_no_violation_by_default if {
 	count(policy.violation) == 0 with input as target_health_input("unavailable")
 }
