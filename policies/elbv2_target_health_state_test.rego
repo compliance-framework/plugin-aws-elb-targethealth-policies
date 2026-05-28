@@ -35,6 +35,18 @@ test_draining_target_has_no_violation if {
 	count(policy.violation) == 0 with input as target_health_input("draining")
 }
 
+test_unavailable_target_has_no_violation_by_default if {
+	count(policy.violation) == 0 with input as target_health_input("unavailable")
+}
+
+test_unavailable_target_has_violation_when_configured if {
+	count(policy.violation) == 1 with input as target_health_input("unavailable") with data.treat_unavailable_as_failure as true
+}
+
+test_unavailable_exception_has_no_violation_when_configured if {
+	count(policy.violation) == 0 with input as target_health_input("unavailable") with data.treat_unavailable_as_failure as true with data.allowed_unhealthy_target_ids as ["i-0123456789abcdef0"]
+}
+
 test_non_target_health_record_skipped if {
 	inp := {"resource": {
 		"type": "loadbalancer",
