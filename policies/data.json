@@ -1,0 +1,4 @@
+{
+  "allowed_unhealthy_target_ids": [],
+  "treat_unavailable_as_failure": false
+}
