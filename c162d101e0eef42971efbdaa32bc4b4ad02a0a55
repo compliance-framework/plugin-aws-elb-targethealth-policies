@@ -1,0 +1,52 @@
+lisa-addressed:
+---
+Comment (policies/elbv2_target_health_state_test.rego:58):
+_🧹 Nitpick_ | _🔵 Trivial_ | _⚡ Quick win_
+
+**Add test coverage for "unused" and "initial" states.**
+
+The README documents that transitional states `draining`, `unused`, and `initial` do not fail. Current tests cover `draining` but not `unused` or `initial`. Consider adding tests to explicitly verify these states don't trigger violations.
+
+<details>
+<summary>🧪 Proposed additional tests</summary>
+
+```diff
++test_unused_target_has_no_violation if {
++	count(policy.violation) == 0 with input as target_health_input("unused")
++}
++
++test_initial_target_has_no_violation if {
++	count(policy.violation) == 0 with input as target_health_input("initial")
++}
++
+ test_non_target_health_record_skipped if {
+```
+</details>
+
+<details>
+<summary>🤖 Prompt for AI Agents</summary>
+
+```
+Verify each finding against current code. Fix only still-valid issues, skip the
+rest with a brief reason, keep changes minimal, and validate.
+
+In `@policies/elbv2_target_health_state_test.rego` around lines 22 - 58, The tests
+are missing coverage for the transitional target states "unused" and "initial";
+add two new test blocks like the existing test_draining_target_has_no_violation
+that assert count(policy.violation) == 0 with input as
+target_health_input("unused") and count(policy.violation) == 0 with input as
+target_health_input("initial"), and also add analogous exception/config variants
+if needed (e.g., with data.treat_unavailable_as_failure or
+data.allowed_unhealthy_target_ids) to mirror existing patterns; locate where
+other tests are defined (test_draining_target_has_no_violation,
+test_healthy_target_has_no_violation, test_unhealthy_target_has_violation) and
+add the new tests alongside them using the same naming convention (e.g.,
+test_unused_target_has_no_violation, test_initial_target_has_no_violation).
+```
+
+</details>
+
+<!-- fingerprinting:phantom:poseidon:puma -->
+
+<!-- This is an auto-generated comment by CodeRabbit -->
+Implementation guidance: In policies/elbv2_target_health_state_test.rego, add two simple tests next to test_draining_target_has_no_violation: `test_unused_target_has_no_violation` asserting `count(policy.violation) == 0 with input as target_health_input("unused")`, and `test_initial_target_has_no_violation` asserting `count(policy.violation) == 0 with input as target_health_input("initial")`. Keep this as test coverage only; do not change policies/elbv2_target_health_state.rego because the current rule already only fails `unhealthy` and configured `unavailable`. Do not add data override variants for these states; `data.treat_unavailable_as_failure` only applies to `unavailable`, and allowed target IDs only suppress failing states.
