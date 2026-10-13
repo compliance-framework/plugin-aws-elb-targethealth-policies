@@ -44,7 +44,7 @@ test_unhealthy_target_has_violation if {
 }
 
 test_unhealthy_exception_has_no_violation if {
-	count(policy.violation) == 0 with input as target_health_input("unhealthy") with data.allowed_unhealthy_target_ids as ["i-0123456789abcdef0"]
+	count(policy.violation) == 0 with input as target_health_input("unhealthy") with data.allowed_unhealthy_target_ids as ["i-0123456789abcdef0"] # regal ignore:unresolved-reference
 }
 
 test_draining_target_has_no_violation if {
@@ -64,11 +64,11 @@ test_unavailable_target_has_no_violation_by_default if {
 }
 
 test_unavailable_target_has_violation_when_configured if {
-	count(policy.violation) == 1 with input as target_health_input("unavailable") with data.treat_unavailable_as_failure as true
+	count(policy.violation) == 1 with input as target_health_input("unavailable") with data.treat_unavailable_as_failure as true # regal ignore:unresolved-reference
 }
 
 test_unavailable_exception_has_no_violation_when_configured if {
-	count(policy.violation) == 0 with input as target_health_input("unavailable") with data.treat_unavailable_as_failure as true with data.allowed_unhealthy_target_ids as ["i-0123456789abcdef0"]
+	count(policy.violation) == 0 with input as target_health_input("unavailable") with data.treat_unavailable_as_failure as true with data.allowed_unhealthy_target_ids as ["i-0123456789abcdef0"] # regal ignore:unresolved-reference
 }
 
 test_unknown_target_health_state_skipped if {

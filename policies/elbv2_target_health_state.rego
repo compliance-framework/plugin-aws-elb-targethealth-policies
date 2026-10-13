@@ -40,8 +40,8 @@ resource := object.get(input, "resource", {})
 resource_type := object.get(resource, "type", "")
 target_id := object.get(config, "target_id", "unknown")
 state := lower(object.get(config, "target_health_state", ""))
-allowed := data.allowed_unhealthy_target_ids
-treat_unavailable_as_failure := data.treat_unavailable_as_failure
+allowed := data.allowed_unhealthy_target_ids # regal ignore:unresolved-reference
+treat_unavailable_as_failure := data.treat_unavailable_as_failure # regal ignore:unresolved-reference
 recognized_target_health_states := {"healthy", "unhealthy", "draining", "unused", "initial", "unavailable"}
 
 skip_reason := sprintf("Resource type %q is not a target health record; this policy only applies to target-health records.", [resource_type]) if {
