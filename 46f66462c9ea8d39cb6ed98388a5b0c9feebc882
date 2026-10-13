@@ -1,2 +1,5 @@
 lisa-selfreview:
 Pass 1 (strict): approve, no findings in the diff. Diff = 5 line-scoped `regal ignore:unresolved-reference` trailing comments (data.json keys) + ci.yml byte-identical to mock-plugin-policies-1 (pinned v1.5.1 SHA, permissions: {}), push.yml/test.yml removed (only push.yml called test.yml). Pre-existing, out of scope: risk_templates has no violation_ids (REGO-RISK-001/002), METADATA detached and lacks custom.schedule (REGO-META-001), test package is separate `_test` (REGO-TEST-001), 15 Regal warnings left by decision.
+
+lisa-design:
+Fix errors only (user decision 2026-10-13): Regal warnings untouched. data.json-only keys get per-line trailing `# regal ignore:unresolved-reference` instead of a repo .regal/config.yaml, so CI keeps using the shared config. Behaviour verified identical with opa eval over 25 inputs x 5 data variants on main vs branch.
