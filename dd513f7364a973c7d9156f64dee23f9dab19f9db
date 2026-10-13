@@ -1,0 +1,2 @@
+lisa-selfreview:
+Self-review pass 1 (strict): approve, no findings. Every caller, ci.yml and release-please-config.json are byte-identical to the merged batch-1 reference (plugin-file-attestation-policies #4); all shared-workflow pins at v1.5.2; config has no drift from release-please/defaults.json at v1.5.2; manifest seeded at 0.1.0 (releases/latest, tag commit 16afc09 is an ancestor of main). actionlint v1.7.12 clean; OPA 1.14.1 build/check --strict/test (12/12) pass; old and new build commands give byte-identical bundles.
